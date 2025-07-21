@@ -5,6 +5,8 @@ import Link from "next/link";
 import { Sofa, Utensils, BedDouble, Briefcase, Sun, Sparkles, PlusCircle } from "lucide-react";
 import { useState } from "react";
 import { useCart } from "@/lib/cart-context";
+import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const productos = [
   {
@@ -89,9 +91,19 @@ const productos = [
   },
 ];
 
+// Utilidad para agrupar en chunks de 4
+function chunkArray(array: any[], size: number) {
+  const result = [];
+  for (let i = 0; i < array.length; i += size) {
+    result.push(array.slice(i, i + size));
+  }
+  return result;
+}
+
 export default function ProductosPage() {
   const [expandida, setExpandida] = useState<string | null>(null);
   const { dispatch } = useCart();
+  const isMobile = useIsMobile();
 
   // Para centrar la última fila si hay 2 cards
   function getGridClasses(idx: number) {
@@ -108,8 +120,14 @@ export default function ProductosPage() {
         <div className="absolute inset-0 bg-black/70 z-0" />
         <div className="relative z-10 flex flex-col items-center justify-center w-full h-full">
           <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-4 drop-shadow">Mueblería</h1>
-          <p className="text-lg md:text-2xl text-white mb-2 max-w-2xl mx-auto drop-shadow">Especialistas en diseño, fabricación y venta de muebles a medida en Loja, Ecuador. Creamos soluciones de calidad para tu hogar y oficina, combinando funcionalidad, estilo y la mejor atención personalizada.</p>
-          <p className="text-base text-gray-200 mb-8 max-w-xl mx-auto">Calidad, diseño y funcionalidad en cada pieza para transformar tus espacios.</p>
+          {isMobile ? (
+            <p className="text-base text-white mb-8 max-w-xs mx-auto drop-shadow">Muebles únicos para tu hogar y oficina.</p>
+          ) : (
+            <>
+              <p className="text-lg md:text-2xl text-white mb-2 max-w-2xl mx-auto drop-shadow">Especialistas en diseño, fabricación y venta de muebles a medida en Loja, Ecuador. Creamos soluciones de calidad para tu hogar y oficina, combinando funcionalidad, estilo y la mejor atención personalizada.</p>
+              <p className="text-base text-gray-200 mb-8 max-w-xl mx-auto">Calidad, diseño y funcionalidad en cada pieza para transformar tus espacios.</p>
+            </>
+          )}
           <Button className="bg-muebleria-accent text-muebleria-text font-bold px-10 py-4 rounded-full text-base shadow-lg mb-2" asChild>
             <a href="#categorias">Explorar Categorías</a>
           </Button>
@@ -120,105 +138,221 @@ export default function ProductosPage() {
       <section id="categorias" className="w-full py-16 bg-white">
         <div className="container mx-auto px-4">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-muebleria-text mb-12 text-center">Explora Nuestras Categorías de Muebles</h2>
-          <div className="flex flex-wrap justify-center gap-8">
-            {/* Salas y Sofás */}
-            <div className="flex flex-col items-center w-48">
-              <div className="w-24 h-24 rounded-full bg-muebleria-accent flex items-center justify-center mb-4">
-                <Sofa className="w-12 h-12 text-muebleria-text" />
-              </div>
-              <h3 className="font-bold text-lg text-muebleria-text mb-2 text-center">Salas y Sofás</h3>
-              <p className="text-gray-600 text-center text-sm mb-2">Comodidad y estilo para tu espacio de encuentro. Desde sofás seccionales hasta sillones individuales.</p>
-              <Button className="bg-muebleria-accent text-muebleria-text w-full" asChild>
-                <a href="#colecciones">Ver Productos</a>
-              </Button>
-                  </div>
-            {/* Comedores */}
-            <div className="flex flex-col items-center w-48">
-              <div className="w-24 h-24 rounded-full bg-muebleria-accent flex items-center justify-center mb-4">
-                <Utensils className="w-12 h-12 text-muebleria-text" />
+          {isMobile ? (
+            <Carousel>
+              <CarouselContent>
+                {/* Salas y Sofás */}
+                <CarouselItem>
+                  <div className="flex flex-col items-center w-full">
+                    <div className="w-24 h-24 rounded-full bg-muebleria-accent flex items-center justify-center mb-4">
+                      <Sofa className="w-12 h-12 text-muebleria-text" />
                     </div>
-              <h3 className="font-bold text-lg text-muebleria-text mb-2 text-center">Comedores</h3>
-              <p className="text-gray-600 text-center text-sm mb-2">Muebles que reúnen a la familia y amigos en torno a la buena mesa. Sets completos y mesas extensibles.</p>
-              <Button className="bg-muebleria-accent text-muebleria-text w-full" asChild>
-                <a href="#colecciones">Ver Productos</a>
+                    <h3 className="font-bold text-lg text-muebleria-text mb-2 text-center">Salas y Sofás</h3>
+                    <p className="text-gray-600 text-center text-sm mb-2">Comodidad y estilo para tu espacio de encuentro. Desde sofás seccionales hasta sillones individuales.</p>
+                    <Button className="bg-muebleria-accent text-muebleria-text w-full" asChild>
+                      <a href="#colecciones">Ver Productos</a>
                     </Button>
-            </div>
-            {/* Dormitorios */}
-            <div className="flex flex-col items-center w-48">
-              <div className="w-24 h-24 rounded-full bg-muebleria-accent flex items-center justify-center mb-4">
-                <BedDouble className="w-12 h-12 text-muebleria-text" />
-              </div>
-              <h3 className="font-bold text-lg text-muebleria-text mb-2 text-center">Dormitorios</h3>
-              <p className="text-gray-600 text-center text-sm mb-2">Crea tu santuario personal con diseños que invitan al descanso. Camas, cómodas, mesas de noche y más.</p>
-              <Button className="bg-muebleria-accent text-muebleria-text w-full" asChild>
-                <a href="#colecciones">Ver Productos</a>
-              </Button>
                   </div>
-            {/* Oficina */}
-            <div className="flex flex-col items-center w-48">
-              <div className="w-24 h-24 rounded-full bg-muebleria-accent flex items-center justify-center mb-4">
-                <Briefcase className="w-12 h-12 text-muebleria-text" />
+                </CarouselItem>
+                {/* Comedores */}
+                <CarouselItem>
+                  <div className="flex flex-col items-center w-full">
+                    <div className="w-24 h-24 rounded-full bg-muebleria-accent flex items-center justify-center mb-4">
+                      <Utensils className="w-12 h-12 text-muebleria-text" />
                     </div>
-              <h3 className="font-bold text-lg text-muebleria-text mb-2 text-center">Muebles de Oficina</h3>
-              <p className="text-gray-600 text-center text-sm mb-2">Ergonomía y diseño para un ambiente de trabajo productivo. Escritorios, sillas ejecutivas, estanterías.</p>
-              <Button className="bg-muebleria-accent text-muebleria-text w-full" asChild>
-                <a href="#colecciones">Ver Productos</a>
+                    <h3 className="font-bold text-lg text-muebleria-text mb-2 text-center">Comedores</h3>
+                    <p className="text-gray-600 text-center text-sm mb-2">Muebles que reúnen a la familia y amigos en torno a la buena mesa. Sets completos y mesas extensibles.</p>
+                    <Button className="bg-muebleria-accent text-muebleria-text w-full" asChild>
+                      <a href="#colecciones">Ver Productos</a>
                     </Button>
-            </div>
-            {/* Exterior */}
-            <div className="flex flex-col items-center w-48">
-              <div className="w-24 h-24 rounded-full bg-muebleria-accent flex items-center justify-center mb-4">
-                <Sun className="w-12 h-12 text-muebleria-text" />
-              </div>
-              <h3 className="font-bold text-lg text-muebleria-text mb-2 text-center">Muebles de Exterior</h3>
-              <p className="text-gray-600 text-center text-sm mb-2">Diseña tu oasis al aire libre con mobiliario resistente y elegante para terrazas y jardines.</p>
-              <Button className="bg-muebleria-accent text-muebleria-text w-full" asChild>
-                <a href="#colecciones">Ver Productos</a>
-              </Button>
                   </div>
-            {/* Accesorios y Decoración */}
-            <div className="flex flex-col items-center w-48">
-              <div className="w-24 h-24 rounded-full bg-muebleria-accent flex items-center justify-center mb-4">
-                <Sparkles className="w-12 h-12 text-muebleria-text" />
+                </CarouselItem>
+                {/* Dormitorios */}
+                <CarouselItem>
+                  <div className="flex flex-col items-center w-full">
+                    <div className="w-24 h-24 rounded-full bg-muebleria-accent flex items-center justify-center mb-4">
+                      <BedDouble className="w-12 h-12 text-muebleria-text" />
+            </div>
+                    <h3 className="font-bold text-lg text-muebleria-text mb-2 text-center">Dormitorios</h3>
+                    <p className="text-gray-600 text-center text-sm mb-2">Crea tu santuario personal con diseños que invitan al descanso. Camas, cómodas, mesas de noche y más.</p>
+                    <Button className="bg-muebleria-accent text-muebleria-text w-full" asChild>
+                      <a href="#colecciones">Ver Productos</a>
+                    </Button>
+                  </div>
+                </CarouselItem>
+                {/* Oficina */}
+                <CarouselItem>
+                  <div className="flex flex-col items-center w-full">
+                    <div className="w-24 h-24 rounded-full bg-muebleria-accent flex items-center justify-center mb-4">
+                      <Briefcase className="w-12 h-12 text-muebleria-text" />
                     </div>
-              <h3 className="font-bold text-lg text-muebleria-text mb-2 text-center">Accesorios y Decoración</h3>
-              <p className="text-gray-600 text-center text-sm mb-2">Detalles que complementan y realzan cada ambiente: lámparas, espejos, alfombras, cojines.</p>
-              <Button className="bg-muebleria-accent text-muebleria-text w-full" asChild>
-                <a href="#colecciones">Ver Productos</a>
+                    <h3 className="font-bold text-lg text-muebleria-text mb-2 text-center">Muebles de Oficina</h3>
+                    <p className="text-gray-600 text-center text-sm mb-2">Ergonomía y diseño para un ambiente de trabajo productivo. Escritorios, sillas ejecutivas, estanterías.</p>
+                    <Button className="bg-muebleria-accent text-muebleria-text w-full" asChild>
+                      <a href="#colecciones">Ver Productos</a>
                     </Button>
-            </div>
-          </div>
                   </div>
+                </CarouselItem>
+                {/* Exterior */}
+                <CarouselItem>
+                  <div className="flex flex-col items-center w-full">
+                    <div className="w-24 h-24 rounded-full bg-muebleria-accent flex items-center justify-center mb-4">
+                      <Sun className="w-12 h-12 text-muebleria-text" />
+            </div>
+                    <h3 className="font-bold text-lg text-muebleria-text mb-2 text-center">Muebles de Exterior</h3>
+                    <p className="text-gray-600 text-center text-sm mb-2">Diseña tu oasis al aire libre con mobiliario resistente y elegante para terrazas y jardines.</p>
+                    <Button className="bg-muebleria-accent text-muebleria-text w-full" asChild>
+                      <a href="#colecciones">Ver Productos</a>
+                    </Button>
+                  </div>
+                </CarouselItem>
+                {/* Accesorios y Decoración */}
+                <CarouselItem>
+                  <div className="flex flex-col items-center w-full">
+                    <div className="w-24 h-24 rounded-full bg-muebleria-accent flex items-center justify-center mb-4">
+                      <Sparkles className="w-12 h-12 text-muebleria-text" />
+                    </div>
+                    <h3 className="font-bold text-lg text-muebleria-text mb-2 text-center">Accesorios y Decoración</h3>
+                    <p className="text-gray-600 text-center text-sm mb-2">Detalles que complementan y realzan cada ambiente: lámparas, espejos, alfombras, cojines.</p>
+                    <Button className="bg-muebleria-accent text-muebleria-text w-full" asChild>
+                      <a href="#colecciones">Ver Productos</a>
+                    </Button>
+                  </div>
+                </CarouselItem>
+              </CarouselContent>
+            </Carousel>
+          ) : (
+            <div className="flex flex-wrap justify-center gap-8">
+              {/* Salas y Sofás */}
+              <div className="flex flex-col items-center w-48">
+                <div className="w-24 h-24 rounded-full bg-muebleria-accent flex items-center justify-center mb-4">
+                  <Sofa className="w-12 h-12 text-muebleria-text" />
+                </div>
+                <h3 className="font-bold text-lg text-muebleria-text mb-2 text-center">Salas y Sofás</h3>
+                <p className="text-gray-600 text-center text-sm mb-2">Comodidad y estilo para tu espacio de encuentro. Desde sofás seccionales hasta sillones individuales.</p>
+                <Button className="bg-muebleria-accent text-muebleria-text w-full" asChild>
+                  <a href="#colecciones">Ver Productos</a>
+                </Button>
+              </div>
+              {/* Comedores */}
+              <div className="flex flex-col items-center w-48">
+                <div className="w-24 h-24 rounded-full bg-muebleria-accent flex items-center justify-center mb-4">
+                  <Utensils className="w-12 h-12 text-muebleria-text" />
+                </div>
+                <h3 className="font-bold text-lg text-muebleria-text mb-2 text-center">Comedores</h3>
+                <p className="text-gray-600 text-center text-sm mb-2">Muebles que reúnen a la familia y amigos en torno a la buena mesa. Sets completos y mesas extensibles.</p>
+                <Button className="bg-muebleria-accent text-muebleria-text w-full" asChild>
+                  <a href="#colecciones">Ver Productos</a>
+                </Button>
+              </div>
+              {/* Dormitorios */}
+              <div className="flex flex-col items-center w-48">
+                <div className="w-24 h-24 rounded-full bg-muebleria-accent flex items-center justify-center mb-4">
+                  <BedDouble className="w-12 h-12 text-muebleria-text" />
+                </div>
+                <h3 className="font-bold text-lg text-muebleria-text mb-2 text-center">Dormitorios</h3>
+                <p className="text-gray-600 text-center text-sm mb-2">Crea tu santuario personal con diseños que invitan al descanso. Camas, cómodas, mesas de noche y más.</p>
+                <Button className="bg-muebleria-accent text-muebleria-text w-full" asChild>
+                  <a href="#colecciones">Ver Productos</a>
+                </Button>
+              </div>
+              {/* Oficina */}
+              <div className="flex flex-col items-center w-48">
+                <div className="w-24 h-24 rounded-full bg-muebleria-accent flex items-center justify-center mb-4">
+                  <Briefcase className="w-12 h-12 text-muebleria-text" />
+                </div>
+                <h3 className="font-bold text-lg text-muebleria-text mb-2 text-center">Muebles de Oficina</h3>
+                <p className="text-gray-600 text-center text-sm mb-2">Ergonomía y diseño para un ambiente de trabajo productivo. Escritorios, sillas ejecutivas, estanterías.</p>
+                <Button className="bg-muebleria-accent text-muebleria-text w-full" asChild>
+                  <a href="#colecciones">Ver Productos</a>
+                </Button>
+              </div>
+              {/* Exterior */}
+              <div className="flex flex-col items-center w-48">
+                <div className="w-24 h-24 rounded-full bg-muebleria-accent flex items-center justify-center mb-4">
+                  <Sun className="w-12 h-12 text-muebleria-text" />
+                </div>
+                <h3 className="font-bold text-lg text-muebleria-text mb-2 text-center">Muebles de Exterior</h3>
+                <p className="text-gray-600 text-center text-sm mb-2">Diseña tu oasis al aire libre con mobiliario resistente y elegante para terrazas y jardines.</p>
+                <Button className="bg-muebleria-accent text-muebleria-text w-full" asChild>
+                  <a href="#colecciones">Ver Productos</a>
+                </Button>
+              </div>
+              {/* Accesorios y Decoración */}
+              <div className="flex flex-col items-center w-48">
+                <div className="w-24 h-24 rounded-full bg-muebleria-accent flex items-center justify-center mb-4">
+                  <Sparkles className="w-12 h-12 text-muebleria-text" />
+                </div>
+                <h3 className="font-bold text-lg text-muebleria-text mb-2 text-center">Accesorios y Decoración</h3>
+                <p className="text-gray-600 text-center text-sm mb-2">Detalles que complementan y realzan cada ambiente: lámparas, espejos, alfombras, cojines.</p>
+                <Button className="bg-muebleria-accent text-muebleria-text w-full" asChild>
+                  <a href="#colecciones">Ver Productos</a>
+                </Button>
+              </div>
+            </div>
+          )}
+        </div>
       </section>
 
       {/* COLECCIONES DESTACADAS */}
       <section id="colecciones" className="w-full py-16 bg-gray-50">
         <div className="container mx-auto px-4">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-muebleria-text mb-12 text-center">Nuestras Colecciones Destacadas</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {productos.map((prod, idx) => (
-              <div key={prod.id} className={`flex flex-col bg-white rounded-xl shadow p-6 items-center relative transition-all duration-300 ${getGridClasses(idx)}`}
-                style={expandida === prod.id ? { zIndex: 10, boxShadow: '0 8px 32px rgba(0,0,0,0.18)' } : {}}>
-                <div className="relative w-full h-48 mb-4 cursor-pointer" onClick={() => setExpandida(expandida === prod.id ? null : prod.id)}>
-                  <Image src={prod.imagen} alt={prod.nombre} fill className="object-cover rounded-xl" />
+          {isMobile ? (
+            <Carousel opts={{ slidesToScroll: 1 }}>
+              <CarouselContent>
+                {productos.map((prod) => (
+                  <CarouselItem key={prod.id} className="flex-none w-[80vw] sm:w-[40vw] md:w-[33vw] pr-2">
+                    <div className={`flex flex-col bg-white rounded-xl shadow p-6 items-center relative transition-all duration-300`}
+                      style={expandida === prod.id ? { zIndex: 10, boxShadow: '0 8px 32px rgba(0,0,0,0.18)' } : {}}>
+                      <div className="relative w-full h-48 mb-4 cursor-pointer" onClick={() => setExpandida(expandida === prod.id ? null : prod.id)}>
+                        <Image src={prod.imagen} alt={prod.nombre} fill className="object-cover rounded-xl" />
+                      </div>
+                      <h3 className="font-bold text-lg text-muebleria-text mb-2 text-center">{prod.nombre}</h3>
+                      <p className="text-gray-600 text-center text-sm mb-2">{prod.descripcion}</p>
+                      <span className="text-black font-bold text-xl mb-2">Desde ${prod.precio}</span>
+                      <Button className="bg-muebleria-accent text-muebleria-text w-full mb-2" onClick={() => setExpandida(expandida === prod.id ? null : prod.id)}>
+                        {expandida === prod.id ? "Cerrar" : "Ver Detalles"}
+                      </Button>
+                      {expandida === prod.id && (
+                        <div className="w-full mt-2 p-4 border-t border-gray-200 animate-fade-in">
+                          <p className="text-muebleria-text text-sm mb-2"><b>Detalles:</b> {prod.detalles}</p>
+                          <Button className="bg-muebleria-text text-muebleria-accent w-full font-bold" onClick={() => dispatch({ type: "ADD_ITEM", payload: { id: prod.id, nombre: prod.nombre, precio: prod.precio, imagen: prod.imagen } })}>
+                            Agregar al carrito
+                          </Button>
+                        </div>
+                      )}
                     </div>
-                <h3 className="font-bold text-lg text-muebleria-text mb-2 text-center">{prod.nombre}</h3>
-                <p className="text-gray-600 text-center text-sm mb-2">{prod.descripcion}</p>
-                <span className="text-black font-bold text-xl mb-2">Desde ${prod.precio}</span>
-                <Button className="bg-muebleria-accent text-muebleria-text w-full mb-2" onClick={() => setExpandida(expandida === prod.id ? null : prod.id)}>
-                  {expandida === prod.id ? "Cerrar" : (idx === 0 ? "Ver Colección" : "Ver Detalles")}
-                </Button>
-                {expandida === prod.id && (
-                  <div className="w-full mt-2 p-4 border-t border-gray-200 animate-fade-in">
-                    <p className="text-muebleria-text text-sm mb-2"><b>Detalles:</b> {prod.detalles}</p>
-                    <Button className="bg-muebleria-text text-muebleria-accent w-full font-bold" onClick={() => dispatch({ type: "ADD_ITEM", payload: { id: prod.id, nombre: prod.nombre, precio: prod.precio, imagen: prod.imagen } })}>
-                      Agregar al carrito
-                    </Button>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+            </Carousel>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {productos.map((prod, idx) => (
+                <div key={prod.id} className={`flex flex-col bg-white rounded-xl shadow p-6 items-center relative transition-all duration-300 ${getGridClasses(idx)}`}
+                  style={expandida === prod.id ? { zIndex: 10, boxShadow: '0 8px 32px rgba(0,0,0,0.18)' } : {}}>
+                  <div className="relative w-full h-48 mb-4 cursor-pointer" onClick={() => setExpandida(expandida === prod.id ? null : prod.id)}>
+                    <Image src={prod.imagen} alt={prod.nombre} fill className="object-cover rounded-xl" />
                   </div>
-                )}
-              </div>
+                  <h3 className="font-bold text-lg text-muebleria-text mb-2 text-center">{prod.nombre}</h3>
+                  <p className="text-gray-600 text-center text-sm mb-2">{prod.descripcion}</p>
+                  <span className="text-black font-bold text-xl mb-2">Desde ${prod.precio}</span>
+                  <Button className="bg-muebleria-accent text-muebleria-text w-full mb-2" onClick={() => setExpandida(expandida === prod.id ? null : prod.id)}>
+                    {expandida === prod.id ? "Cerrar" : (idx === 0 ? "Ver Colección" : "Ver Detalles")}
+                  </Button>
+                  {expandida === prod.id && (
+                    <div className="w-full mt-2 p-4 border-t border-gray-200 animate-fade-in">
+                      <p className="text-muebleria-text text-sm mb-2"><b>Detalles:</b> {prod.detalles}</p>
+                      <Button className="bg-muebleria-text text-muebleria-accent w-full font-bold" onClick={() => dispatch({ type: "ADD_ITEM", payload: { id: prod.id, nombre: prod.nombre, precio: prod.precio, imagen: prod.imagen } })}>
+                        Agregar al carrito
+                      </Button>
+                    </div>
+                  )}
+                </div>
               ))}
             </div>
+          )}
         </div>
       </section>
 

@@ -100,28 +100,23 @@ export function Header() {
                 >
                   Inicio
                 </Link>
-                <div>
-                  <button
-                    className="w-full text-left text-gray-700 hover:text-marmolinas-blue transition-colors py-2 flex items-center justify-between"
-                    onClick={() => setIsMenuOpen(false)}
-                    type="button"
-                  >
-                    Servicios
-                    <svg className="ml-1 w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
-                  </button>
-                  {isMenuOpen && (
-                    <div className="pl-4 flex flex-col space-y-1">
-                      <Link href="/servicios/diseno-fabricacion" className="block py-2 text-muebleria-text hover:bg-muebleria-accent hover:text-muebleria-text rounded transition-colors" onClick={() => setIsMenuOpen(false)}>
-                        Diseño y Fabricación Personalizada
-                      </Link>
-                      <Link href="/servicios/restauracion-mantenimiento" className="block py-2 text-muebleria-text hover:bg-muebleria-accent hover:text-muebleria-text rounded transition-colors" onClick={() => setIsMenuOpen(false)}>
-                        Restauración y Mantenimiento de Muebles
-                      </Link>
-                      <Link href="/servicios/asesoria-interiorismo" className="block py-2 text-muebleria-text hover:bg-muebleria-accent hover:text-muebleria-text rounded transition-colors" onClick={() => setIsMenuOpen(false)}>
-                        Asesoría y Proyectos de Interiorismo
-                      </Link>
-                    </div>
-                  )}
+                <Link
+                  href="/servicios"
+                  className="text-gray-700 hover:text-marmolinas-blue transition-colors py-2"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Servicios
+                </Link>
+                <div className="pl-4 flex flex-col space-y-1">
+                  <Link href="/servicios/diseno-fabricacion" className="block py-2 text-muebleria-text hover:bg-muebleria-accent hover:text-muebleria-text rounded transition-colors" onClick={() => setIsMenuOpen(false)}>
+                    Diseño y Fabricación Personalizada
+                  </Link>
+                  <Link href="/servicios/restauracion-mantenimiento" className="block py-2 text-muebleria-text hover:bg-muebleria-accent hover:text-muebleria-text rounded transition-colors" onClick={() => setIsMenuOpen(false)}>
+                    Restauración y Mantenimiento de Muebles
+                  </Link>
+                  <Link href="/servicios/asesoria-interiorismo" className="block py-2 text-muebleria-text hover:bg-muebleria-accent hover:text-muebleria-text rounded transition-colors" onClick={() => setIsMenuOpen(false)}>
+                    Asesoría y Proyectos de Interiorismo
+                  </Link>
                 </div>
                 <Link
                   href="/productos"

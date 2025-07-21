@@ -2,8 +2,11 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Ruler, User, Home, Layout, Lightbulb, Users, Star, Layers, ArrowRightLeft } from "lucide-react";
+import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 export default function AsesoriaInteriorismoPage() {
+  const isMobile = useIsMobile();
   return (
     <div className="w-full bg-white">
       {/* HERO SECTION */}
@@ -21,28 +24,63 @@ export default function AsesoriaInteriorismoPage() {
         <div className="container mx-auto px-4 max-w-5xl">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-muebleria-text mb-6 text-center">Diseñamos el Ambiente Perfecto para Ti</h2>
           <p className="text-lg text-muebleria-text mb-10 text-center">Elegir los muebles adecuados es clave para crear un ambiente que te inspire y se adapte a tu estilo de vida. En Mueblería, vamos más allá de la venta, ofreciéndote un servicio de Asesoría y Proyectos de Interiorismo diseñado para optimizar tus espacios y materializar la atmósfera que deseas.</p>
-          <div className="flex flex-wrap justify-center gap-8 mb-4">
-            <div className="flex flex-col items-center w-48">
-              <Layout className="w-10 h-10 text-muebleria-accent mb-2" />
-              <span className="font-bold text-muebleria-text mb-1">Optimización</span>
-              <span className="text-gray-600 text-center text-sm">Aprovecha cada metro cuadrado.</span>
+          {isMobile ? (
+            <Carousel>
+              <CarouselContent>
+                <CarouselItem>
+                  <div className="flex flex-col items-center w-full">
+                    <Layout className="w-10 h-10 text-muebleria-accent mb-2" />
+                    <span className="font-bold text-muebleria-text mb-1">Optimización</span>
+                    <span className="text-gray-600 text-center text-sm">Aprovecha cada metro cuadrado.</span>
+                  </div>
+                </CarouselItem>
+                <CarouselItem>
+                  <div className="flex flex-col items-center w-full">
+                    <User className="w-10 h-10 text-muebleria-accent mb-2" />
+                    <span className="font-bold text-muebleria-text mb-1">Estilo</span>
+                    <span className="text-gray-600 text-center text-sm">Ambientes que reflejan tu personalidad.</span>
+                  </div>
+                </CarouselItem>
+                <CarouselItem>
+                  <div className="flex flex-col items-center w-full">
+                    <Home className="w-10 h-10 text-muebleria-accent mb-2" />
+                    <span className="font-bold text-muebleria-text mb-1">Funcionalidad</span>
+                    <span className="text-gray-600 text-center text-sm">Espacios prácticos y cómodos.</span>
+                  </div>
+                </CarouselItem>
+                <CarouselItem>
+                  <div className="flex flex-col items-center w-full">
+                    <Layers className="w-10 h-10 text-muebleria-accent mb-2" />
+                    <span className="font-bold text-muebleria-text mb-1">Coherencia</span>
+                    <span className="text-gray-600 text-center text-sm">Armonía en cada detalle.</span>
+                  </div>
+                </CarouselItem>
+              </CarouselContent>
+            </Carousel>
+          ) : (
+            <div className="flex flex-wrap justify-center gap-8 mb-4">
+              <div className="flex flex-col items-center w-48">
+                <Layout className="w-10 h-10 text-muebleria-accent mb-2" />
+                <span className="font-bold text-muebleria-text mb-1">Optimización</span>
+                <span className="text-gray-600 text-center text-sm">Aprovecha cada metro cuadrado.</span>
+              </div>
+              <div className="flex flex-col items-center w-48">
+                <User className="w-10 h-10 text-muebleria-accent mb-2" />
+                <span className="font-bold text-muebleria-text mb-1">Estilo</span>
+                <span className="text-gray-600 text-center text-sm">Ambientes que reflejan tu personalidad.</span>
+              </div>
+              <div className="flex flex-col items-center w-48">
+                <Home className="w-10 h-10 text-muebleria-accent mb-2" />
+                <span className="font-bold text-muebleria-text mb-1">Funcionalidad</span>
+                <span className="text-gray-600 text-center text-sm">Espacios prácticos y cómodos.</span>
+              </div>
+              <div className="flex flex-col items-center w-48">
+                <Layers className="w-10 h-10 text-muebleria-accent mb-2" />
+                <span className="font-bold text-muebleria-text mb-1">Coherencia</span>
+                <span className="text-gray-600 text-center text-sm">Armonía en cada detalle.</span>
+              </div>
             </div>
-            <div className="flex flex-col items-center w-48">
-              <User className="w-10 h-10 text-muebleria-accent mb-2" />
-              <span className="font-bold text-muebleria-text mb-1">Estilo</span>
-              <span className="text-gray-600 text-center text-sm">Ambientes que reflejan tu personalidad.</span>
-            </div>
-            <div className="flex flex-col items-center w-48">
-              <Home className="w-10 h-10 text-muebleria-accent mb-2" />
-              <span className="font-bold text-muebleria-text mb-1">Funcionalidad</span>
-              <span className="text-gray-600 text-center text-sm">Espacios prácticos y cómodos.</span>
-            </div>
-            <div className="flex flex-col items-center w-48">
-              <Layers className="w-10 h-10 text-muebleria-accent mb-2" />
-              <span className="font-bold text-muebleria-text mb-1">Coherencia</span>
-              <span className="text-gray-600 text-center text-sm">Armonía en cada detalle.</span>
-            </div>
-          </div>
+          )}
         </div>
       </section>
 
@@ -50,32 +88,71 @@ export default function AsesoriaInteriorismoPage() {
       <section className="w-full py-16 bg-gray-50">
         <div className="container mx-auto px-4 max-w-5xl">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-muebleria-text mb-12 text-center">Tu Proyecto, Paso a Paso con Nuestros Expertos</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="flex flex-col items-center bg-white rounded-xl shadow p-6">
-              <span className="text-muebleria-accent font-bold text-2xl mb-2">1</span>
-              <Lightbulb className="w-10 h-10 text-muebleria-accent mb-2" />
-              <span className="font-bold text-muebleria-text mb-1 text-center">Análisis y Conceptualización</span>
-              <span className="text-gray-600 text-center text-sm">Evaluamos las dimensiones de tu área, la iluminación, el flujo de movimiento y tus preferencias personales para proponerte las mejores soluciones y un concepto inicial.</span>
+          {isMobile ? (
+            <Carousel>
+              <CarouselContent>
+                <CarouselItem>
+                  <div className="flex flex-col items-center bg-white rounded-xl shadow p-6">
+                    <span className="text-muebleria-accent font-bold text-2xl mb-2">1</span>
+                    <Lightbulb className="w-10 h-10 text-muebleria-accent mb-2" />
+                    <span className="font-bold text-muebleria-text mb-1 text-center">Análisis y Conceptualización</span>
+                    <span className="text-gray-600 text-center text-sm">Evaluamos las dimensiones de tu área, la iluminación, el flujo de movimiento y tus preferencias personales para proponerte las mejores soluciones y un concepto inicial.</span>
+                  </div>
+                </CarouselItem>
+                <CarouselItem>
+                  <div className="flex flex-col items-center bg-white rounded-xl shadow p-6">
+                    <span className="text-muebleria-accent font-bold text-2xl mb-2">2</span>
+                    <Ruler className="w-10 h-10 text-muebleria-accent mb-2" />
+                    <span className="font-bold text-muebleria-text mb-1 text-center">Propuesta de Diseño y Selección de Mobiliario</span>
+                    <span className="text-gray-600 text-center text-sm">Te ayudamos a definir el estilo decorativo, paleta de colores y a seleccionar piezas de nuestro catálogo o a diseñar muebles a medida que se integren con tu visión y presupuesto.</span>
+                  </div>
+                </CarouselItem>
+                <CarouselItem>
+                  <div className="flex flex-col items-center bg-white rounded-xl shadow p-6">
+                    <span className="text-muebleria-accent font-bold text-2xl mb-2">3</span>
+                    <Layout className="w-10 h-10 text-muebleria-accent mb-2" />
+                    <span className="font-bold text-muebleria-text mb-1 text-center">Planificación y Distribución</span>
+                    <span className="text-gray-600 text-center text-sm">Creamos planos de distribución y renders que te permiten visualizar cómo quedará tu espacio, optimizando la ubicación de cada mueble y elemento decorativo.</span>
+                  </div>
+                </CarouselItem>
+                <CarouselItem>
+                  <div className="flex flex-col items-center bg-white rounded-xl shadow p-6">
+                    <span className="text-muebleria-accent font-bold text-2xl mb-2">4</span>
+                    <ArrowRightLeft className="w-10 h-10 text-muebleria-accent mb-2" />
+                    <span className="font-bold text-muebleria-text mb-1 text-center">Implementación y Acompañamiento</span>
+                    <span className="text-gray-600 text-center text-sm">Te acompañamos durante la adquisición e instalación de los muebles, asegurando que el proyecto se ejecute según lo planificado hasta el resultado final.</span>
+                  </div>
+                </CarouselItem>
+              </CarouselContent>
+            </Carousel>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              <div className="flex flex-col items-center bg-white rounded-xl shadow p-6">
+                <span className="text-muebleria-accent font-bold text-2xl mb-2">1</span>
+                <Lightbulb className="w-10 h-10 text-muebleria-accent mb-2" />
+                <span className="font-bold text-muebleria-text mb-1 text-center">Análisis y Conceptualización</span>
+                <span className="text-gray-600 text-center text-sm">Evaluamos las dimensiones de tu área, la iluminación, el flujo de movimiento y tus preferencias personales para proponerte las mejores soluciones y un concepto inicial.</span>
+              </div>
+              <div className="flex flex-col items-center bg-white rounded-xl shadow p-6">
+                <span className="text-muebleria-accent font-bold text-2xl mb-2">2</span>
+                <Ruler className="w-10 h-10 text-muebleria-accent mb-2" />
+                <span className="font-bold text-muebleria-text mb-1 text-center">Propuesta de Diseño y Selección de Mobiliario</span>
+                <span className="text-gray-600 text-center text-sm">Te ayudamos a definir el estilo decorativo, paleta de colores y a seleccionar piezas de nuestro catálogo o a diseñar muebles a medida que se integren con tu visión y presupuesto.</span>
+              </div>
+              <div className="flex flex-col items-center bg-white rounded-xl shadow p-6">
+                <span className="text-muebleria-accent font-bold text-2xl mb-2">3</span>
+                <Layout className="w-10 h-10 text-muebleria-accent mb-2" />
+                <span className="font-bold text-muebleria-text mb-1 text-center">Planificación y Distribución</span>
+                <span className="text-gray-600 text-center text-sm">Creamos planos de distribución y renders que te permiten visualizar cómo quedará tu espacio, optimizando la ubicación de cada mueble y elemento decorativo.</span>
+              </div>
+              <div className="flex flex-col items-center bg-white rounded-xl shadow p-6">
+                <span className="text-muebleria-accent font-bold text-2xl mb-2">4</span>
+                <ArrowRightLeft className="w-10 h-10 text-muebleria-accent mb-2" />
+                <span className="font-bold text-muebleria-text mb-1 text-center">Implementación y Acompañamiento</span>
+                <span className="text-gray-600 text-center text-sm">Te acompañamos durante la adquisición e instalación de los muebles, asegurando que el proyecto se ejecute según lo planificado hasta el resultado final.</span>
+              </div>
             </div>
-            <div className="flex flex-col items-center bg-white rounded-xl shadow p-6">
-              <span className="text-muebleria-accent font-bold text-2xl mb-2">2</span>
-              <Ruler className="w-10 h-10 text-muebleria-accent mb-2" />
-              <span className="font-bold text-muebleria-text mb-1 text-center">Propuesta de Diseño y Selección de Mobiliario</span>
-              <span className="text-gray-600 text-center text-sm">Te ayudamos a definir el estilo decorativo, paleta de colores y a seleccionar piezas de nuestro catálogo o a diseñar muebles a medida que se integren con tu visión y presupuesto.</span>
-            </div>
-            <div className="flex flex-col items-center bg-white rounded-xl shadow p-6">
-              <span className="text-muebleria-accent font-bold text-2xl mb-2">3</span>
-              <Layout className="w-10 h-10 text-muebleria-accent mb-2" />
-              <span className="font-bold text-muebleria-text mb-1 text-center">Planificación y Distribución</span>
-              <span className="text-gray-600 text-center text-sm">Creamos planos de distribución y renders que te permiten visualizar cómo quedará tu espacio, optimizando la ubicación de cada mueble y elemento decorativo.</span>
-            </div>
-            <div className="flex flex-col items-center bg-white rounded-xl shadow p-6">
-              <span className="text-muebleria-accent font-bold text-2xl mb-2">4</span>
-              <ArrowRightLeft className="w-10 h-10 text-muebleria-accent mb-2" />
-              <span className="font-bold text-muebleria-text mb-1 text-center">Implementación y Acompañamiento</span>
-              <span className="text-gray-600 text-center text-sm">Te acompañamos durante la adquisición e instalación de los muebles, asegurando que el proyecto se ejecute según lo planificado hasta el resultado final.</span>
-            </div>
-          </div>
+          )}
         </div>
       </section>
 

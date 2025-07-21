@@ -7,6 +7,7 @@ import React, { useRef, useState, useEffect } from "react"
 import Image from "next/image"
 import { HeroSection } from '@/components/hero-section';
 import { PencilRuler, Brush, Home, Truck, PiggyBank, Users } from 'lucide-react';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 // Servicios principales
 const servicios = [
@@ -48,6 +49,7 @@ const heroPinteres = [
 
 export default function ServicesPage() {
   const [heroIndex, setHeroIndex] = useState(0);
+  const isMobile = useIsMobile();
   useEffect(() => {
     const interval = setInterval(() => {
       setHeroIndex((prev) => (prev + 1) % heroPinteres.length);
@@ -72,7 +74,11 @@ export default function ServicesPage() {
         <div className="absolute inset-0 bg-black/70 z-0" />
         <div className="relative z-10 flex flex-col items-center justify-center w-full h-full">
           <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-4 drop-shadow">Transformamos tus Ideas en Mobiliario Excepcional</h1>
-          <p className="text-lg md:text-2xl text-white mb-8 max-w-2xl mx-auto drop-shadow">En Mueblería, cada servicio está diseñado para crear, restaurar y perfeccionar tus espacios.</p>
+          {isMobile ? (
+            <p className="text-base text-white mb-8 max-w-xs mx-auto drop-shadow">Servicios para crear y renovar tus espacios.</p>
+          ) : (
+            <p className="text-lg md:text-2xl text-white mb-8 max-w-2xl mx-auto drop-shadow">En Mueblería, cada servicio está diseñado para crear, restaurar y perfeccionar tus espacios.</p>
+          )}
           <Button className="bg-muebleria-accent text-muebleria-text font-bold px-10 py-4 rounded-full text-base shadow-lg">Solicita una Consulta</Button>
         </div>
       </section>
@@ -114,24 +120,40 @@ export default function ServicesPage() {
       <section className="w-full py-16 bg-white">
         <div className="container mx-auto px-4">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-muebleria-text mb-12 text-center">Valor Añadido a tu Proyecto</h2>
-          <div className="flex flex-wrap justify-center gap-8">
-            {/* Entrega y Ensamblaje Profesional */}
-            <div className="flex flex-col items-center w-64 bg-gray-50 rounded-xl shadow p-6">
-              <div className="w-16 h-16 rounded-full bg-muebleria-accent flex items-center justify-center mb-4">
-                <Truck className="w-8 h-8 text-muebleria-text" />
+          {isMobile ? (
+            <Carousel>
+              <CarouselContent>
+                {[{titulo:'Entrega y Ensamblaje Profesional',icono:<Truck className="w-8 h-8 text-muebleria-text"/>,desc:'Transporte y ensamblaje experto.'},{titulo:'Opciones de Financiamiento',icono:<PiggyBank className="w-8 h-8 text-muebleria-text"/>,desc:'Facilidades de pago para tu proyecto.'}].map((item,idx)=>(
+                  <CarouselItem key={idx} className="flex-none w-[85vw] pr-2">
+                    <div className="flex flex-col items-center w-full bg-gray-50 rounded-xl shadow p-6">
+                      <div className="w-16 h-16 rounded-full bg-muebleria-accent flex items-center justify-center mb-4">{item.icono}</div>
+                      <h3 className="font-bold text-lg text-muebleria-text mb-2 text-center">{item.titulo}</h3>
+                      <p className="text-gray-600 text-center text-sm">{item.desc}</p>
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+            </Carousel>
+          ) : (
+            <div className="flex flex-wrap justify-center gap-8">
+              {/* Entrega y Ensamblaje Profesional */}
+              <div className="flex flex-col items-center w-64 bg-gray-50 rounded-xl shadow p-6">
+                <div className="w-16 h-16 rounded-full bg-muebleria-accent flex items-center justify-center mb-4">
+                  <Truck className="w-8 h-8 text-muebleria-text" />
+                </div>
+                <h3 className="font-bold text-lg text-muebleria-text mb-2 text-center">Entrega y Ensamblaje Profesional</h3>
+                <p className="text-gray-600 text-center text-sm">Nos encargamos del transporte seguro de tus muebles hasta tu hogar u oficina y de su ensamblaje experto, garantizando una instalación perfecta sin preocupaciones.</p>
               </div>
-              <h3 className="font-bold text-lg text-muebleria-text mb-2 text-center">Entrega y Ensamblaje Profesional</h3>
-              <p className="text-gray-600 text-center text-sm">Nos encargamos del transporte seguro de tus muebles hasta tu hogar u oficina y de su ensamblaje experto, garantizando una instalación perfecta sin preocupaciones.</p>
-            </div>
-            {/* Opciones de Financiamiento */}
-            <div className="flex flex-col items-center w-64 bg-gray-50 rounded-xl shadow p-6">
-              <div className="w-16 h-16 rounded-full bg-muebleria-accent flex items-center justify-center mb-4">
-                <PiggyBank className="w-8 h-8 text-muebleria-text" />
+              {/* Opciones de Financiamiento */}
+              <div className="flex flex-col items-center w-64 bg-gray-50 rounded-xl shadow p-6">
+                <div className="w-16 h-16 rounded-full bg-muebleria-accent flex items-center justify-center mb-4">
+                  <PiggyBank className="w-8 h-8 text-muebleria-text" />
+                </div>
+                <h3 className="font-bold text-lg text-muebleria-text mb-2 text-center">Opciones de Financiamiento</h3>
+                <p className="text-gray-600 text-center text-sm">Ofrecemos diversas facilidades de pago y opciones de financiamiento para que puedas hacer realidad tus proyectos de mobiliario sin comprometer tu presupuesto.</p>
               </div>
-              <h3 className="font-bold text-lg text-muebleria-text mb-2 text-center">Opciones de Financiamiento</h3>
-              <p className="text-gray-600 text-center text-sm">Ofrecemos diversas facilidades de pago y opciones de financiamiento para que puedas hacer realidad tus proyectos de mobiliario sin comprometer tu presupuesto.</p>
             </div>
-          </div>
+          )}
         </div>
       </section>
 

@@ -2,8 +2,11 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Heart, Leaf, DollarSign, RefreshCw, Wrench, Paintbrush, Sofa, ShieldCheck, ArrowRightLeft } from "lucide-react";
+import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 export default function RestauracionMantenimientoPage() {
+  const isMobile = useIsMobile();
   return (
     <div className="w-full bg-white">
       {/* HERO SECTION */}
@@ -21,28 +24,63 @@ export default function RestauracionMantenimientoPage() {
         <div className="container mx-auto px-4 max-w-5xl">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-muebleria-text mb-6 text-center">Preserva la Historia, Renueva la Belleza</h2>
           <p className="text-lg text-muebleria-text mb-10 text-center">En Mueblería, sabemos que algunos muebles tienen un valor incalculable, ya sea sentimental o estético. Nuestro servicio de Restauración y Mantenimiento está dedicado a preservar la belleza, funcionalidad y esencia de tus piezas, prolongando su vida útil y actualizando su apariencia cuando sea necesario.</p>
-          <div className="flex flex-wrap justify-center gap-8 mb-4">
-            <div className="flex flex-col items-center w-48">
-              <Heart className="w-10 h-10 text-muebleria-accent mb-2" />
-              <span className="font-bold text-muebleria-text mb-1">Valor Sentimental</span>
-              <span className="text-gray-600 text-center text-sm">Conserva recuerdos y herencias.</span>
+          {isMobile ? (
+            <Carousel>
+              <CarouselContent>
+                <CarouselItem>
+                  <div className="flex flex-col items-center w-full">
+                    <Heart className="w-10 h-10 text-muebleria-accent mb-2" />
+                    <span className="font-bold text-muebleria-text mb-1">Valor Sentimental</span>
+                    <span className="text-gray-600 text-center text-sm">Conserva recuerdos y herencias.</span>
+                  </div>
+                </CarouselItem>
+                <CarouselItem>
+                  <div className="flex flex-col items-center w-full">
+                    <Leaf className="w-10 h-10 text-muebleria-accent mb-2" />
+                    <span className="font-bold text-muebleria-text mb-1">Sostenibilidad</span>
+                    <span className="text-gray-600 text-center text-sm">Reutiliza y reduce el impacto ambiental.</span>
+                  </div>
+                </CarouselItem>
+                <CarouselItem>
+                  <div className="flex flex-col items-center w-full">
+                    <DollarSign className="w-10 h-10 text-muebleria-accent mb-2" />
+                    <span className="font-bold text-muebleria-text mb-1">Ahorro</span>
+                    <span className="text-gray-600 text-center text-sm">Alternativa económica a comprar nuevo.</span>
+                  </div>
+                </CarouselItem>
+                <CarouselItem>
+                  <div className="flex flex-col items-center w-full">
+                    <RefreshCw className="w-10 h-10 text-muebleria-accent mb-2" />
+                    <span className="font-bold text-muebleria-text mb-1">Personalización</span>
+                    <span className="text-gray-600 text-center text-sm">Actualiza el estilo sin perder la esencia.</span>
+                  </div>
+                </CarouselItem>
+              </CarouselContent>
+            </Carousel>
+          ) : (
+            <div className="flex flex-wrap justify-center gap-8 mb-4">
+              <div className="flex flex-col items-center w-48">
+                <Heart className="w-10 h-10 text-muebleria-accent mb-2" />
+                <span className="font-bold text-muebleria-text mb-1">Valor Sentimental</span>
+                <span className="text-gray-600 text-center text-sm">Conserva recuerdos y herencias.</span>
+              </div>
+              <div className="flex flex-col items-center w-48">
+                <Leaf className="w-10 h-10 text-muebleria-accent mb-2" />
+                <span className="font-bold text-muebleria-text mb-1">Sostenibilidad</span>
+                <span className="text-gray-600 text-center text-sm">Reutiliza y reduce el impacto ambiental.</span>
+              </div>
+              <div className="flex flex-col items-center w-48">
+                <DollarSign className="w-10 h-10 text-muebleria-accent mb-2" />
+                <span className="font-bold text-muebleria-text mb-1">Ahorro</span>
+                <span className="text-gray-600 text-center text-sm">Alternativa económica a comprar nuevo.</span>
+              </div>
+              <div className="flex flex-col items-center w-48">
+                <RefreshCw className="w-10 h-10 text-muebleria-accent mb-2" />
+                <span className="font-bold text-muebleria-text mb-1">Personalización</span>
+                <span className="text-gray-600 text-center text-sm">Actualiza el estilo sin perder la esencia.</span>
+              </div>
             </div>
-            <div className="flex flex-col items-center w-48">
-              <Leaf className="w-10 h-10 text-muebleria-accent mb-2" />
-              <span className="font-bold text-muebleria-text mb-1">Sostenibilidad</span>
-              <span className="text-gray-600 text-center text-sm">Reutiliza y reduce el impacto ambiental.</span>
-            </div>
-            <div className="flex flex-col items-center w-48">
-              <DollarSign className="w-10 h-10 text-muebleria-accent mb-2" />
-              <span className="font-bold text-muebleria-text mb-1">Ahorro</span>
-              <span className="text-gray-600 text-center text-sm">Alternativa económica a comprar nuevo.</span>
-            </div>
-            <div className="flex flex-col items-center w-48">
-              <RefreshCw className="w-10 h-10 text-muebleria-accent mb-2" />
-              <span className="font-bold text-muebleria-text mb-1">Personalización</span>
-              <span className="text-gray-600 text-center text-sm">Actualiza el estilo sin perder la esencia.</span>
-            </div>
-          </div>
+          )}
         </div>
       </section>
 
@@ -50,28 +88,63 @@ export default function RestauracionMantenimientoPage() {
       <section className="w-full py-16 bg-gray-50">
         <div className="container mx-auto px-4 max-w-5xl">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-muebleria-text mb-12 text-center">Cuidado Integral para tus Muebles</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="flex flex-col items-center bg-white rounded-xl shadow p-6">
-              <Wrench className="w-10 h-10 text-muebleria-accent mb-2" />
-              <span className="font-bold text-muebleria-text mb-1 text-center">Reparación Estructural</span>
-              <span className="text-gray-600 text-center text-sm">Solucionamos problemas de estabilidad, uniones rotas o piezas faltantes, garantizando la solidez y seguridad de tu mobiliario.</span>
+          {isMobile ? (
+            <Carousel>
+              <CarouselContent>
+                <CarouselItem>
+                  <div className="flex flex-col items-center bg-white rounded-xl shadow p-6">
+                    <Wrench className="w-10 h-10 text-muebleria-accent mb-2" />
+                    <span className="font-bold text-muebleria-text mb-1 text-center">Reparación Estructural</span>
+                    <span className="text-gray-600 text-center text-sm">Solucionamos problemas de estabilidad, uniones rotas o piezas faltantes, garantizando la solidez y seguridad de tu mobiliario.</span>
+                  </div>
+                </CarouselItem>
+                <CarouselItem>
+                  <div className="flex flex-col items-center bg-white rounded-xl shadow p-6">
+                    <Paintbrush className="w-10 h-10 text-muebleria-accent mb-2" />
+                    <span className="font-bold text-muebleria-text mb-1 text-center">Renovación de Acabados</span>
+                    <span className="text-gray-600 text-center text-sm">Desde el pulido y barnizado hasta el lacado y la pintura, restauramos la superficie de tus muebles para devolverles su brillo original o darles un nuevo look.</span>
+                  </div>
+                </CarouselItem>
+                <CarouselItem>
+                  <div className="flex flex-col items-center bg-white rounded-xl shadow p-6">
+                    <Sofa className="w-10 h-10 text-muebleria-accent mb-2" />
+                    <span className="font-bold text-muebleria-text mb-1 text-center">Retapizado y Relleno</span>
+                    <span className="text-gray-600 text-center text-sm">Renueva tus sillones, sillas o sofás con nuestra selección de telas y rellenos de alta calidad, combinando confort y diseño moderno o clásico.</span>
+                  </div>
+                </CarouselItem>
+                <CarouselItem>
+                  <div className="flex flex-col items-center bg-white rounded-xl shadow p-6">
+                    <ShieldCheck className="w-10 h-10 text-muebleria-accent mb-2" />
+                    <span className="font-bold text-muebleria-text mb-1 text-center">Mantenimiento Preventivo</span>
+                    <span className="text-gray-600 text-center text-sm">Ofrecemos asesoría y servicios para el cuidado regular de tus muebles, protegiéndolos del deterioro y manteniendo su estado óptimo.</span>
+                  </div>
+                </CarouselItem>
+              </CarouselContent>
+            </Carousel>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              <div className="flex flex-col items-center bg-white rounded-xl shadow p-6">
+                <Wrench className="w-10 h-10 text-muebleria-accent mb-2" />
+                <span className="font-bold text-muebleria-text mb-1 text-center">Reparación Estructural</span>
+                <span className="text-gray-600 text-center text-sm">Solucionamos problemas de estabilidad, uniones rotas o piezas faltantes, garantizando la solidez y seguridad de tu mobiliario.</span>
+              </div>
+              <div className="flex flex-col items-center bg-white rounded-xl shadow p-6">
+                <Paintbrush className="w-10 h-10 text-muebleria-accent mb-2" />
+                <span className="font-bold text-muebleria-text mb-1 text-center">Renovación de Acabados</span>
+                <span className="text-gray-600 text-center text-sm">Desde el pulido y barnizado hasta el lacado y la pintura, restauramos la superficie de tus muebles para devolverles su brillo original o darles un nuevo look.</span>
+              </div>
+              <div className="flex flex-col items-center bg-white rounded-xl shadow p-6">
+                <Sofa className="w-10 h-10 text-muebleria-accent mb-2" />
+                <span className="font-bold text-muebleria-text mb-1 text-center">Retapizado y Relleno</span>
+                <span className="text-gray-600 text-center text-sm">Renueva tus sillones, sillas o sofás con nuestra selección de telas y rellenos de alta calidad, combinando confort y diseño moderno o clásico.</span>
+              </div>
+              <div className="flex flex-col items-center bg-white rounded-xl shadow p-6">
+                <ShieldCheck className="w-10 h-10 text-muebleria-accent mb-2" />
+                <span className="font-bold text-muebleria-text mb-1 text-center">Mantenimiento Preventivo</span>
+                <span className="text-gray-600 text-center text-sm">Ofrecemos asesoría y servicios para el cuidado regular de tus muebles, protegiéndolos del deterioro y manteniendo su estado óptimo.</span>
+              </div>
             </div>
-            <div className="flex flex-col items-center bg-white rounded-xl shadow p-6">
-              <Paintbrush className="w-10 h-10 text-muebleria-accent mb-2" />
-              <span className="font-bold text-muebleria-text mb-1 text-center">Renovación de Acabados</span>
-              <span className="text-gray-600 text-center text-sm">Desde el pulido y barnizado hasta el lacado y la pintura, restauramos la superficie de tus muebles para devolverles su brillo original o darles un nuevo look.</span>
-            </div>
-            <div className="flex flex-col items-center bg-white rounded-xl shadow p-6">
-              <Sofa className="w-10 h-10 text-muebleria-accent mb-2" />
-              <span className="font-bold text-muebleria-text mb-1 text-center">Retapizado y Relleno</span>
-              <span className="text-gray-600 text-center text-sm">Renueva tus sillones, sillas o sofás con nuestra selección de telas y rellenos de alta calidad, combinando confort y diseño moderno o clásico.</span>
-            </div>
-            <div className="flex flex-col items-center bg-white rounded-xl shadow p-6">
-              <ShieldCheck className="w-10 h-10 text-muebleria-accent mb-2" />
-              <span className="font-bold text-muebleria-text mb-1 text-center">Mantenimiento Preventivo</span>
-              <span className="text-gray-600 text-center text-sm">Ofrecemos asesoría y servicios para el cuidado regular de tus muebles, protegiéndolos del deterioro y manteniendo su estado óptimo.</span>
-            </div>
-          </div>
+          )}
         </div>
       </section>
 
@@ -79,29 +152,63 @@ export default function RestauracionMantenimientoPage() {
       <section className="w-full py-16 bg-white">
         <div className="container mx-auto px-4 max-w-6xl">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-muebleria-text mb-12 text-center">Transformaciones Asombrosas</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-            <div className="flex flex-col items-center">
-              <div className="relative w-full h-56 mb-3">
-                <Image src="/images/5.jpg" alt="Antes y después 1" fill className="object-cover rounded-xl" />
+          {isMobile ? (
+            <Carousel>
+              <CarouselContent>
+                <CarouselItem>
+                  <div className="flex flex-col items-center">
+                    <div className="relative w-full h-56 mb-3">
+                      <Image src="/images/5.jpg" alt="Antes y después 1" fill className="object-cover rounded-xl" />
+                    </div>
+                    <span className="font-bold text-muebleria-text">Silla restaurada</span>
+                    <span className="text-gray-600 text-sm text-center">De pieza antigua a protagonista del comedor.</span>
+                  </div>
+                </CarouselItem>
+                <CarouselItem>
+                  <div className="flex flex-col items-center">
+                    <div className="relative w-full h-56 mb-3">
+                      <Image src="/images/6.jpg" alt="Antes y después 2" fill className="object-cover rounded-xl" />
+                    </div>
+                    <span className="font-bold text-muebleria-text">Sofá renovado</span>
+                    <span className="text-gray-600 text-sm text-center">Nuevo tapizado y estructura reforzada.</span>
+                  </div>
+                </CarouselItem>
+                <CarouselItem>
+                  <div className="flex flex-col items-center">
+                    <div className="relative w-full h-56 mb-3">
+                      <Image src="/images/7.jpg" alt="Antes y después 3" fill className="object-cover rounded-xl" />
+                    </div>
+                    <span className="font-bold text-muebleria-text">Mueble clásico modernizado</span>
+                    <span className="text-gray-600 text-sm text-center">Acabados y color renovados para un look actual.</span>
+                  </div>
+                </CarouselItem>
+              </CarouselContent>
+            </Carousel>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+              <div className="flex flex-col items-center">
+                <div className="relative w-full h-56 mb-3">
+                  <Image src="/images/5.jpg" alt="Antes y después 1" fill className="object-cover rounded-xl" />
+                </div>
+                <span className="font-bold text-muebleria-text">Silla restaurada</span>
+                <span className="text-gray-600 text-sm text-center">De pieza antigua a protagonista del comedor.</span>
               </div>
-              <span className="font-bold text-muebleria-text">Silla restaurada</span>
-              <span className="text-gray-600 text-sm text-center">De pieza antigua a protagonista del comedor.</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <div className="relative w-full h-56 mb-3">
-                <Image src="/images/6.jpg" alt="Antes y después 2" fill className="object-cover rounded-xl" />
+              <div className="flex flex-col items-center">
+                <div className="relative w-full h-56 mb-3">
+                  <Image src="/images/6.jpg" alt="Antes y después 2" fill className="object-cover rounded-xl" />
+                </div>
+                <span className="font-bold text-muebleria-text">Sofá renovado</span>
+                <span className="text-gray-600 text-sm text-center">Nuevo tapizado y estructura reforzada.</span>
               </div>
-              <span className="font-bold text-muebleria-text">Sofá renovado</span>
-              <span className="text-gray-600 text-sm text-center">Nuevo tapizado y estructura reforzada.</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <div className="relative w-full h-56 mb-3">
-                <Image src="/images/7.jpg" alt="Antes y después 3" fill className="object-cover rounded-xl" />
+              <div className="flex flex-col items-center">
+                <div className="relative w-full h-56 mb-3">
+                  <Image src="/images/7.jpg" alt="Antes y después 3" fill className="object-cover rounded-xl" />
+                </div>
+                <span className="font-bold text-muebleria-text">Mueble clásico modernizado</span>
+                <span className="text-gray-600 text-sm text-center">Acabados y color renovados para un look actual.</span>
               </div>
-              <span className="font-bold text-muebleria-text">Mueble clásico modernizado</span>
-              <span className="text-gray-600 text-sm text-center">Acabados y color renovados para un look actual.</span>
             </div>
-          </div>
+          )}
         </div>
       </section>
 

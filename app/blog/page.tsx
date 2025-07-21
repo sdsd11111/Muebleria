@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { Search, ChevronRight, ChevronLeft } from "lucide-react";
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const articulos = [
   {
@@ -75,6 +76,7 @@ export default function BlogPage() {
   const [categoria, setCategoria] = useState("Todo");
   const [pagina, setPagina] = useState(0);
   const porPagina = 4;
+  const isMobile = useIsMobile();
 
   const articulosFiltrados = articulos.filter((art) => {
     const coincideCategoria = categoria === "Todo" || art.categoria === categoria;
@@ -93,7 +95,11 @@ export default function BlogPage() {
   return (
     <main className="max-w-6xl mx-auto py-12 px-4 min-h-screen flex flex-col">
       <h1 className="text-4xl font-bold text-muebleria-text mb-2">Nuestro Blog</h1>
-      <h2 className="text-xl text-muebleria-text mb-8">Novedades, consejos y tendencias para inspirar tu hogar y oficina con Mueblería.</h2>
+      {isMobile ? (
+        <h2 className="text-base text-muebleria-text mb-8">Ideas y consejos para tu espacio.</h2>
+      ) : (
+        <h2 className="text-xl text-muebleria-text mb-8">Novedades, consejos y tendencias para inspirar tu hogar y oficina con Mueblería.</h2>
+      )}
       <div className="flex flex-col md:flex-row gap-8">
         {/* Listado vertical de artículos */}
         <section className="flex-1">

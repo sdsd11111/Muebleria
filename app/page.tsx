@@ -107,7 +107,11 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-black/70 z-0" />
         <div className="relative z-10 flex flex-col items-center justify-center w-full h-full">
           <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-4 drop-shadow">Diseñamos y Creamos Tus Muebles Soñados</h1>
-          <p className="text-lg md:text-2xl text-white mb-8 max-w-2xl mx-auto drop-shadow">Transforma cada espacio con Mueblería, tu aliado en mobiliario de calidad.</p>
+          {isMobile ? (
+            <p className="text-base text-white mb-8 max-w-xs mx-auto drop-shadow">Muebles a tu medida, sin complicaciones.</p>
+          ) : (
+            <p className="text-lg md:text-2xl text-white mb-8 max-w-2xl mx-auto drop-shadow">Transforma cada espacio con Mueblería, tu aliado en mobiliario de calidad.</p>
+          )}
           <Button className="bg-muebleria-accent text-muebleria-text font-bold px-10 py-4 rounded-full text-base shadow-lg" asChild>
             <a href="https://wa.me/593986223966" target="_blank" rel="noopener noreferrer">Solicitar Cotización</a>
           </Button>
